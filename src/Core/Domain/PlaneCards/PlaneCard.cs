@@ -4,7 +4,6 @@ namespace Domain.PlaneCards;
 
 public sealed class PlaneCard : BoardingCard
 {
-    public override BoardingCardType Type { get; } = BoardingCardType.Plane;
     public string Seat { get; set; } = null!;
     public string Gate { get; set; } = null!;
     public string? Counter { get; set; }

@@ -1,5 +1,6 @@
 using AutoBogus;
 using BehaviorTests.Extensions;
+using Domain.BoardingCards;
 using Domain.BusCards;
 using FluentAssertions;
 using Host.Controllers;
@@ -25,6 +26,7 @@ public sealed class BusCardGetByIdTests : TestsBase
         // Arrange
         var busCards = new AutoFaker<BusCard>()
             .RuleFor(x => x.Id, _ => Guid.NewGuid())
+            .RuleFor(x => x.Type, BoardingCardType.Bus)
             .RuleFor(x => x.Number, f => f.Random.String2(10))
             .RuleFor(x => x.Departure, f => f.Address.City())
             .RuleFor(x => x.Arrival, f => f.Address.City())
@@ -55,6 +57,7 @@ public sealed class BusCardGetByIdTests : TestsBase
         // Arrange
         var busCards = new AutoFaker<BusCard>()
             .RuleFor(x => x.Id, _ => Guid.NewGuid())
+            .RuleFor(x => x.Type, BoardingCardType.Bus)
             .Generate(5);
         await DbContext.AddRangeAsync(busCards);
 

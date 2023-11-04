@@ -32,6 +32,7 @@ public sealed class BoardingCardGetAllTests : TestsBase
         // Arrange
         var busCards = new AutoFaker<BusCard>()
             .RuleFor(x => x.Id, _ => Guid.NewGuid())
+            .RuleFor(x => x.Type, BoardingCardType.Bus)
             .RuleFor(x => x.Number, f => f.Random.String2(10))
             .RuleFor(x => x.Departure, f => f.Address.City())
             .RuleFor(x => x.Arrival, f => f.Address.City())
@@ -41,6 +42,7 @@ public sealed class BoardingCardGetAllTests : TestsBase
 
         var trainCards = new AutoFaker<TrainCard>()
             .RuleFor(x => x.Id, _ => Guid.NewGuid())
+            .RuleFor(x => x.Type, BoardingCardType.Train)
             .RuleFor(x => x.Number, f => f.Random.String2(10))
             .RuleFor(x => x.Departure, f => f.Address.City())
             .RuleFor(x => x.Arrival, f => f.Address.City())
@@ -50,6 +52,7 @@ public sealed class BoardingCardGetAllTests : TestsBase
 
         var planeCards = new AutoFaker<PlaneCard>()
             .RuleFor(x => x.Id, _ => Guid.NewGuid())
+            .RuleFor(x => x.Type, BoardingCardType.Plane)
             .RuleFor(x => x.Number, f => f.Random.String2(10))
             .RuleFor(x => x.Departure, f => f.Address.City())
             .RuleFor(x => x.Arrival, f => f.Address.City())

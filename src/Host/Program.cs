@@ -19,7 +19,7 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddDomain();
-builder.Services.AddPersistence();
+builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
 
 builder.Services.AddAuthentication();
@@ -70,7 +70,7 @@ if (!builder.Environment.IsProduction())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUiServices(builder.Services);
+    app.UseSwaggerUiServices();
 }
 
 app.UseProblemDetails();
@@ -79,6 +79,8 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 app.UseCors();
+
+app.EnsureDatabasesMigrated();
 
 app.UseAuthentication();
 app.UseAuthorization();

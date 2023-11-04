@@ -9,9 +9,11 @@ namespace Application.PlaneCards.Mappers;
 public static partial class PlaneCardMapper
 {
     [MapperIgnoreTarget(nameof(PlaneCard.Id))]
+    [MapperIgnoreTarget(nameof(PlaneCard.Type))]
     public static partial PlaneCard MapToPlaneCard(this PlaneCardCreate.Command command);
 
     [MapperIgnoreTarget(nameof(PlaneCard.Id))]
+    [MapperIgnoreTarget(nameof(PlaneCard.Type))]
     public static partial void MapToPlaneCard(this PlaneCardUpdate.Command command, PlaneCard entity);
 
     public static partial PlaneCardDto MapToPlaneCardDto(this PlaneCard entity);

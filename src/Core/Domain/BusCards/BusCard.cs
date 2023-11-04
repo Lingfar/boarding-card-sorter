@@ -4,7 +4,6 @@ namespace Domain.BusCards;
 
 public sealed class BusCard : BoardingCard
 {
-    public override BoardingCardType Type { get; } = BoardingCardType.Bus;
     public string? Seat { get; set; }
 
     public override string ToString() => $"Take bus {Number} from {Departure} to {Arrival}. {SeatAssignment()}";
