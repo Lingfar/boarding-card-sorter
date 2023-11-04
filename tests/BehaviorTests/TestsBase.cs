@@ -34,7 +34,6 @@ public abstract class TestsBase : IDisposable
     protected TestsBase()
     {
         var databaseName = Guid.NewGuid().ToString();
-
         var serviceCollection = new ServiceCollection()
             .AddLogging()
             .AddDbContext<WriteDbContext>(options => options.UseInMemoryDatabase(databaseName, _inMemoryDatabaseRoot))

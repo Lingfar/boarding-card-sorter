@@ -2,7 +2,9 @@ using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Persistence.DbContexts;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
@@ -62,9 +64,15 @@ public static class ProgramHelpers
         });
     }
 
-    public static void UseSwaggerUiServices(this WebApplication app, IServiceCollection services)
+    public static void EnsureDatabasesMigrated(this WebApplication app)
     {
-        var versionProvider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+        using var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<WriteDbContext>();
+        dbContext.Database.Migrate();
+    }
+
+    public static void UseSwaggerUiServices(this WebApplication app)
+    {
+        var versionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
         app.UseSwaggerUI(options =>
         {

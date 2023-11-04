@@ -3,6 +3,8 @@ using Domain.BusCards;
 using Domain.PlaneCards;
 using Domain.TrainCards;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Configuration;
+using Persistence.DbContexts.Extensions;
 
 namespace Persistence.DbContexts;
 
@@ -22,5 +24,12 @@ public class WriteDbContext : DbContext
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.ApplyConfigurationsFromAssembly(typeof(WriteDbContext).Assembly);
+    {
+        modelBuilder.HasPostgresExtension(Constants.PostgresUuidExtension);
+        modelBuilder.UseEnums();
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(WriteDbContext).Assembly);
+
+        modelBuilder.ApplyPostgresNamingConventions();
+    }
 }
