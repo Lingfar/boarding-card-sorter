@@ -15,10 +15,10 @@ namespace Host.Controllers;
 public class BusCardController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<BusCardDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BusCardDto[]), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<BusCardDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<BusCardDto[]>> GetAllAsync(CancellationToken cancellationToken = default)
         => Ok(await mediator.Send(new BusCardGetAll.Query(), cancellationToken));
 
     [HttpPost]
@@ -31,7 +31,7 @@ public class BusCardController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken = default)
         => Ok(new CreatedDto(await mediator.Send(request.MapToBusCardCreateCommand(), cancellationToken)));
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(BusCardDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -41,7 +41,7 @@ public class BusCardController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken = default)
         => Ok(await mediator.Send(new BusCardGetById.Query(id), cancellationToken));
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]

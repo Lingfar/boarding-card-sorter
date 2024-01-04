@@ -7,5 +7,5 @@ namespace Application.BoardingCards.Mappers;
 [Mapper]
 public static partial class BoardingCardMapper
 {
-    public static partial IEnumerable<BoardingCardDto> MapToBoardingCardDtos(this List<BoardingCard> entities);
+    public static partial BoardingCardDto[] MapToBoardingCardDtos(this BoardingCard[] entities);
 }

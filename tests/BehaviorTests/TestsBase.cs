@@ -22,13 +22,7 @@ public abstract class TestsBase : IDisposable
     static TestsBase()
     {
         ValidatorOptions.Global.LanguageManager.Enabled = false;
-
-        AutoFaker.Configure(builder =>
-        {
-            builder
-                .WithRecursiveDepth(1)
-                .WithTreeDepth(1);
-        });
+        AutoFaker.Configure(builder => builder.WithRecursiveDepth(1).WithTreeDepth(1));
     }
 
     protected TestsBase()

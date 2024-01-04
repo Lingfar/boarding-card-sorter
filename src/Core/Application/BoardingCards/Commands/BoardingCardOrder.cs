@@ -18,17 +18,15 @@ public static class BoardingCardOrder
         {
             var unorderedCards = await readDbContext.BoardingCards.ToListAsync(cancellationToken);
 
-            var cardByDeparture = new Dictionary<string, BoardingCard>();
-            var arrivals = new HashSet<string>();
+            Dictionary<string, BoardingCard> cardByDeparture = new();
+            HashSet<string> arrivals = [];
 
             foreach (var card in unorderedCards)
             {
-                if (cardByDeparture.ContainsKey(card.Departure))
+                if (!cardByDeparture.TryAdd(card.Departure, card))
                 {
                     throw new ValidationException($"Duplicate '{nameof(card.Departure)}' location found: {card.Departure}.");
                 }
-
-                cardByDeparture[card.Departure] = card;
 
                 if (!arrivals.Add(card.Arrival))
                 {
@@ -42,7 +40,7 @@ public static class BoardingCardOrder
 
         private static string GetJourney(string startLocation, Dictionary<string, BoardingCard> cardByDeparture)
         {
-            var journey = new StringBuilder();
+            StringBuilder journey = new();
 
             var currentLocation = startLocation;
             while (cardByDeparture.TryGetValue(currentLocation, out var currentCard))

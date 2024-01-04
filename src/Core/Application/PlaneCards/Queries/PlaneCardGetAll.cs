@@ -9,11 +9,11 @@ namespace Application.PlaneCards.Queries;
 
 public static class PlaneCardGetAll
 {
-    public sealed record Query : IQuery<IEnumerable<PlaneCardDto>>;
+    public sealed record Query : IQuery<PlaneCardDto[]>;
 
-    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, IEnumerable<PlaneCardDto>>
+    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, PlaneCardDto[]>
     {
-        public async Task<IEnumerable<PlaneCardDto>> Handle(Query request, CancellationToken cancellationToken)
-            => (await readDbContext.PlaneCards.ToListAsync(cancellationToken)).MapToPlaneCardDtos();
+        public async Task<PlaneCardDto[]> Handle(Query request, CancellationToken cancellationToken)
+            => (await readDbContext.PlaneCards.ToArrayAsync(cancellationToken)).MapToPlaneCardDtos();
     }
 }

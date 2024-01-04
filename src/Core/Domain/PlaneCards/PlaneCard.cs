@@ -4,8 +4,8 @@ namespace Domain.PlaneCards;
 
 public sealed class PlaneCard : BoardingCard
 {
-    public string Seat { get; set; } = null!;
-    public string Gate { get; set; } = null!;
+    public required string Seat { get; set; }
+    public required string Gate { get; set; }
     public string? Counter { get; set; }
 
     public override string ToString() => $"From {Departure}, take flight {Number} to {Arrival}. Gate {Gate}, seat {Seat}. {BaggageAssignment()}";

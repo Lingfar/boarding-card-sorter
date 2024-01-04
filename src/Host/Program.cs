@@ -44,16 +44,12 @@ builder.Services
 // Used for Authentication, propagations in Interceptors, logs
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(options => options.AddDefaultPolicy(corsPolicyBuilder =>
 {
-    options.AddDefaultPolicy(
-        corsPolicyBuilder =>
-        {
-            corsPolicyBuilder.AllowAnyOrigin();
-            corsPolicyBuilder.AllowAnyHeader();
-            corsPolicyBuilder.AllowAnyMethod();
-        });
-});
+    corsPolicyBuilder.AllowAnyOrigin();
+    corsPolicyBuilder.AllowAnyHeader();
+    corsPolicyBuilder.AllowAnyMethod();
+}));
 
 builder.Services.AddHealthChecks();
 builder.Services.AddProblemDetailsServices();

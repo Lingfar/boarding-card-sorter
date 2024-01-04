@@ -27,7 +27,7 @@ public sealed class BoardingCardOrderTests : TestsBase
     {
         // Arrange
         // Madrid -> Barcelona -> Gerona Airport -> Stockholm -> New York JFK
-        var card1 = new PlaneCard
+        PlaneCard card1 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK455",
@@ -37,7 +37,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Gate = "45B",
             Counter = "344"
         };
-        var card2 = new TrainCard
+        TrainCard card2 = new()
         {
             Id = Guid.NewGuid(),
             Number = "78A",
@@ -45,7 +45,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Barcelona",
             Seat = "45B"
         };
-        var card3 = new BusCard
+        BusCard card3 = new()
         {
             Id = Guid.NewGuid(),
             Number = "B1337",
@@ -53,7 +53,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Gerona Airport",
             Seat = null
         };
-        var card4 = new PlaneCard
+        PlaneCard card4 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK22",
@@ -72,16 +72,14 @@ public sealed class BoardingCardOrderTests : TestsBase
         var actionResult = await Controller.OrderAndGetJourneyAsync();
 
         // Assert
-        actionResult.AsOkResult()
-            .Should()
-            .Be(
-                """
-                Take train 78A from Madrid to Barcelona. Sit in seat 45B.
-                Take bus B1337 from Barcelona to Gerona Airport. No seat assignment.
-                From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A. Baggage drop at ticket counter 344.
-                From Stockholm, take flight SK22 to New York JFK. Gate 22, seat 7B. Baggage will be automatically transferred from your last leg.
-                You have arrived at your final destination.
-                """);
+        actionResult.AsOkResult().Should().Be(
+            """
+            Take train 78A from Madrid to Barcelona. Sit in seat 45B.
+            Take bus B1337 from Barcelona to Gerona Airport. No seat assignment.
+            From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A. Baggage drop at ticket counter 344.
+            From Stockholm, take flight SK22 to New York JFK. Gate 22, seat 7B. Baggage will be automatically transferred from your last leg.
+            You have arrived at your final destination.
+            """);
     }
 
     [Fact]
@@ -89,7 +87,7 @@ public sealed class BoardingCardOrderTests : TestsBase
     {
         // Arrange
         // Madrid -> Barcelona -> Gerona Airport -> Stockholm -> Madrid
-        var card1 = new PlaneCard
+        PlaneCard card1 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK455",
@@ -99,7 +97,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Gate = "45B",
             Counter = "344"
         };
-        var card2 = new TrainCard
+        TrainCard card2 = new()
         {
             Id = Guid.NewGuid(),
             Number = "78A",
@@ -107,7 +105,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Barcelona",
             Seat = "45B"
         };
-        var card3 = new BusCard
+        BusCard card3 = new()
         {
             Id = Guid.NewGuid(),
             Number = "B1337",
@@ -115,7 +113,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Gerona Airport",
             Seat = null
         };
-        var card4 = new PlaneCard
+        PlaneCard card4 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK22",
@@ -143,7 +141,7 @@ public sealed class BoardingCardOrderTests : TestsBase
         // Arrange
         // Madrid -> Barcelona -> Gerona Airport -> Stockholm
         // Madrid -> New York JFK
-        var card1 = new PlaneCard
+        PlaneCard card1 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK455",
@@ -153,7 +151,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Gate = "45B",
             Counter = "344"
         };
-        var card2 = new TrainCard
+        TrainCard card2 = new()
         {
             Id = Guid.NewGuid(),
             Number = "78A",
@@ -161,7 +159,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Barcelona",
             Seat = "45B"
         };
-        var card3 = new BusCard
+        BusCard card3 = new()
         {
             Id = Guid.NewGuid(),
             Number = "B1337",
@@ -169,7 +167,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Gerona Airport",
             Seat = null
         };
-        var card4 = new PlaneCard
+        PlaneCard card4 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK22",
@@ -196,7 +194,7 @@ public sealed class BoardingCardOrderTests : TestsBase
     {
         // Arrange
         // Madrid -> Barcelona -> Gerona Airport -> Stockholm -> Barcelona
-        var card1 = new PlaneCard
+        PlaneCard card1 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK455",
@@ -206,7 +204,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Gate = "45B",
             Counter = "344"
         };
-        var card2 = new TrainCard
+        TrainCard card2 = new()
         {
             Id = Guid.NewGuid(),
             Number = "78A",
@@ -214,7 +212,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Barcelona",
             Seat = "45B"
         };
-        var card3 = new BusCard
+        BusCard card3 = new()
         {
             Id = Guid.NewGuid(),
             Number = "B1337",
@@ -222,7 +220,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Gerona Airport",
             Seat = null
         };
-        var card4 = new PlaneCard
+        PlaneCard card4 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK22",
@@ -249,7 +247,7 @@ public sealed class BoardingCardOrderTests : TestsBase
     {
         // Arrange
         // Madrid -> Barcelona -> Gerona Airport -> Paris -> ? -> Stockholm -> New York JFK
-        var card1 = new PlaneCard
+        PlaneCard card1 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK455",
@@ -259,7 +257,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Gate = "45B",
             Counter = "344"
         };
-        var card2 = new TrainCard
+        TrainCard card2 = new()
         {
             Id = Guid.NewGuid(),
             Number = "78A",
@@ -267,7 +265,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Barcelona",
             Seat = "45B"
         };
-        var card3 = new BusCard
+        BusCard card3 = new()
         {
             Id = Guid.NewGuid(),
             Number = "B1337",
@@ -275,7 +273,7 @@ public sealed class BoardingCardOrderTests : TestsBase
             Arrival = "Gerona Airport",
             Seat = null
         };
-        var card4 = new PlaneCard
+        PlaneCard card4 = new()
         {
             Id = Guid.NewGuid(),
             Number = "SK22",

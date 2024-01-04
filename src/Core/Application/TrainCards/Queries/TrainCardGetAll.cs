@@ -9,11 +9,11 @@ namespace Application.TrainCards.Queries;
 
 public static class TrainCardGetAll
 {
-    public sealed record Query : IQuery<IEnumerable<TrainCardDto>>;
+    public sealed record Query : IQuery<TrainCardDto[]>;
 
-    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, IEnumerable<TrainCardDto>>
+    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, TrainCardDto[]>
     {
-        public async Task<IEnumerable<TrainCardDto>> Handle(Query request, CancellationToken cancellationToken)
-            => (await readDbContext.TrainCards.ToListAsync(cancellationToken)).MapToTrainCardDtos();
+        public async Task<TrainCardDto[]> Handle(Query request, CancellationToken cancellationToken)
+            => (await readDbContext.TrainCards.ToArrayAsync(cancellationToken)).MapToTrainCardDtos();
     }
 }

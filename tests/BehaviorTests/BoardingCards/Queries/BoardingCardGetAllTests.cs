@@ -71,21 +71,20 @@ public sealed class BoardingCardGetAllTests : TestsBase
         // Assert
         var boardingCards = actionResult.AsOkResult().ToList();
         boardingCards.Should().HaveCount(busCards.Count + trainCards.Count + planeCards.Count);
-        boardingCards.Should()
-            .AllSatisfy(resultBoardingCard =>
+        boardingCards.Should().AllSatisfy(resultBoardingCard =>
+        {
+            BoardingCard boardingCard = resultBoardingCard.Type switch
             {
-                BoardingCard boardingCard = resultBoardingCard.Type switch
-                {
-                    BoardingCardType.Bus => DbContext.BusCards.WithSpecification(new BusCardByIdSpec(resultBoardingCard.Id)).Single(),
-                    BoardingCardType.Train => DbContext.TrainCards.WithSpecification(new TrainCardByIdSpec(resultBoardingCard.Id)).Single(),
-                    BoardingCardType.Plane => DbContext.PlaneCards.WithSpecification(new PlaneCardByIdSpec(resultBoardingCard.Id)).Single(),
-                    _ => throw new Exception("Unknown boarding card type")
-                };
+                BoardingCardType.Bus => DbContext.BusCards.WithSpecification(new BusCardByIdSpec(resultBoardingCard.Id)).Single(),
+                BoardingCardType.Train => DbContext.TrainCards.WithSpecification(new TrainCardByIdSpec(resultBoardingCard.Id)).Single(),
+                BoardingCardType.Plane => DbContext.PlaneCards.WithSpecification(new PlaneCardByIdSpec(resultBoardingCard.Id)).Single(),
+                _ => throw new Exception("Unknown boarding card type")
+            };
 
-                resultBoardingCard.Type.Should().Be(boardingCard.Type);
-                resultBoardingCard.Number.Should().Be(boardingCard.Number);
-                resultBoardingCard.Departure.Should().Be(boardingCard.Departure);
-                resultBoardingCard.Arrival.Should().Be(boardingCard.Arrival);
-            });
+            resultBoardingCard.Type.Should().Be(boardingCard.Type);
+            resultBoardingCard.Number.Should().Be(boardingCard.Number);
+            resultBoardingCard.Departure.Should().Be(boardingCard.Departure);
+            resultBoardingCard.Arrival.Should().Be(boardingCard.Arrival);
+        });
     }
 }

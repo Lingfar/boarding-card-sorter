@@ -9,11 +9,11 @@ namespace Application.BoardingCards.Queries;
 
 public static class BoardingCardGetAll
 {
-    public sealed record Query : IQuery<IEnumerable<BoardingCardDto>>;
+    public sealed record Query : IQuery<BoardingCardDto[]>;
 
-    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, IEnumerable<BoardingCardDto>>
+    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, BoardingCardDto[]>
     {
-        public async Task<IEnumerable<BoardingCardDto>> Handle(Query request, CancellationToken cancellationToken)
-            => (await readDbContext.BoardingCards.ToListAsync(cancellationToken)).MapToBoardingCardDtos();
+        public async Task<BoardingCardDto[]> Handle(Query request, CancellationToken cancellationToken)
+            => (await readDbContext.BoardingCards.ToArrayAsync(cancellationToken)).MapToBoardingCardDtos();
     }
 }

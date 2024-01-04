@@ -2,7 +2,7 @@ using Domain.BoardingCards;
 
 namespace Application.TrainCards.Dtos;
 
-public sealed class TrainCardDto
+public sealed record TrainCardDto
 {
     public Guid Id { get; set; }
     public BoardingCardType Type { get; set; }

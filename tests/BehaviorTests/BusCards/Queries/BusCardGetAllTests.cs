@@ -45,15 +45,14 @@ public sealed class BusCardGetAllTests : TestsBase
         // Assert
         var resultBusCards = actionResult.AsOkResult().ToList();
         resultBusCards.Should().HaveCount(busCards.Count);
-        resultBusCards.Should()
-            .AllSatisfy(resultBusCard =>
-            {
-                var busCard = DbContext.BusCards.WithSpecification(new BusCardByIdSpec(resultBusCard.Id)).Single();
-                resultBusCard.Type.Should().Be(busCard.Type);
-                resultBusCard.Number.Should().Be(busCard.Number);
-                resultBusCard.Departure.Should().Be(busCard.Departure);
-                resultBusCard.Arrival.Should().Be(busCard.Arrival);
-                resultBusCard.Seat.Should().Be(busCard.Seat);
-            });
+        resultBusCards.Should().AllSatisfy(resultBusCard =>
+        {
+            var busCard = DbContext.BusCards.WithSpecification(new BusCardByIdSpec(resultBusCard.Id)).Single();
+            resultBusCard.Type.Should().Be(busCard.Type);
+            resultBusCard.Number.Should().Be(busCard.Number);
+            resultBusCard.Departure.Should().Be(busCard.Departure);
+            resultBusCard.Arrival.Should().Be(busCard.Arrival);
+            resultBusCard.Seat.Should().Be(busCard.Seat);
+        });
     }
 }

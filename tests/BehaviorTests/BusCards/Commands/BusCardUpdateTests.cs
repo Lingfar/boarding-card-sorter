@@ -27,9 +27,9 @@ public sealed class BusCardUpdateTests : TestsBase
     {
         // Arrange
         var busCard = await SeedBusCard();
+        var request = new SyncBusCardDto("newNumber", "Genève", "Nice", null);
 
         // Act
-        var request = new SyncBusCardDto("newNumber", "Genève", "Nice", null);
         var actionResult = await Controller.UpdateAsync(busCard.Id, request);
 
         // Assert
@@ -99,9 +99,9 @@ public sealed class BusCardUpdateTests : TestsBase
     public async Task BusCardUpdate_WhenNotExists_ShouldThrowValidationException()
     {
         // Arrange
+        var requestId = Guid.NewGuid();
 
         // Act
-        var requestId = Guid.NewGuid();
         var exception = await Assert.ThrowsAsync<ValidationException>(()
             => Controller.UpdateAsync(requestId, new SyncBusCardDto("number", "London", "Genève", null)));
 
@@ -118,7 +118,7 @@ public sealed class BusCardUpdateTests : TestsBase
         // Arrange
         var busCard = await SeedBusCard();
 
-        var otherBusCard = new BusCard
+        BusCard otherBusCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",
@@ -143,7 +143,7 @@ public sealed class BusCardUpdateTests : TestsBase
 
     private async Task<BusCard> SeedBusCard()
     {
-        var busCard = new BusCard
+        BusCard busCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "number",

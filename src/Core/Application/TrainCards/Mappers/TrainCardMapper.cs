@@ -17,5 +17,5 @@ public static partial class TrainCardMapper
     public static partial void MapToTrainCard(this TrainCardUpdate.Command command, TrainCard entity);
 
     public static partial TrainCardDto MapToTrainCardDto(this TrainCard entity);
-    public static partial IEnumerable<TrainCardDto> MapToTrainCardDtos(this List<TrainCard> entities);
+    public static partial TrainCardDto[] MapToTrainCardDtos(this TrainCard[] entities);
 }

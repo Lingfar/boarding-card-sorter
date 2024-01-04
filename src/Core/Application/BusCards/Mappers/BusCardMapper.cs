@@ -17,5 +17,5 @@ public static partial class BusCardMapper
     public static partial void MapToBusCard(this BusCardUpdate.Command command, BusCard entity);
 
     public static partial BusCardDto MapToBusCardDto(this BusCard entity);
-    public static partial IEnumerable<BusCardDto> MapToBusCardDtos(this List<BusCard> entities);
+    public static partial BusCardDto[] MapToBusCardDtos(this BusCard[] entities);
 }

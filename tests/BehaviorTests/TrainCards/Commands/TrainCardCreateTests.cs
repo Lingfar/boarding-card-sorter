@@ -26,9 +26,9 @@ public sealed class TrainCardCreateTests : TestsBase
     public async Task TrainCardCreate_WhenInputIsGood_ShouldCreateTrainCard()
     {
         // Arrange
+        var request = new SyncTrainCardDto("number", "Paris", "London", "seat");
 
         // Act
-        var request = new SyncTrainCardDto("number", "Paris", "London", "seat");
         var actionResult = await Controller.CreateAsync(request);
 
         // Assert
@@ -64,8 +64,8 @@ public sealed class TrainCardCreateTests : TestsBase
         // Arrange
 
         // Act
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(() => Controller.CreateAsync(new SyncTrainCardDto("number", string.Empty, "London", "seat")));
+        var exception = await Assert.ThrowsAsync<ValidationException>(()
+            => Controller.CreateAsync(new SyncTrainCardDto("number", string.Empty, "London", "seat")));
 
         // Assert
         exception.Errors.Should().HaveCount(1);
@@ -110,7 +110,7 @@ public sealed class TrainCardCreateTests : TestsBase
     public async Task TrainCardCreate_WhenNumberAlreadyExists_ShouldThrowValidationException()
     {
         // Arrange
-        var otherTrainCard = new TrainCard
+        TrainCard otherTrainCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",

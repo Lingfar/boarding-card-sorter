@@ -13,10 +13,10 @@ namespace Host.Controllers;
 public class BoardingCardController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<BoardingCardDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BoardingCardDto[]), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<BoardingCardDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<BoardingCardDto[]>> GetAllAsync(CancellationToken cancellationToken = default)
         => Ok(await mediator.Send(new BoardingCardGetAll.Query(), cancellationToken));
 
     [HttpPost("order")]

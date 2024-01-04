@@ -27,9 +27,9 @@ public sealed class PlaneCardUpdateTests : TestsBase
     {
         // Arrange
         var planeCard = await SeedPlaneCard();
+        var request = new SyncPlaneCardDto("newNumber", "Genève", "Nice", "seat", "gate", "counter");
 
         // Act
-        var request = new SyncPlaneCardDto("newNumber", "Genève", "Nice", "seat", "gate", "counter");
         var actionResult = await Controller.UpdateAsync(planeCard.Id, request);
 
         // Assert
@@ -135,9 +135,9 @@ public sealed class PlaneCardUpdateTests : TestsBase
     public async Task PlaneCardUpdate_WhenNotExists_ShouldThrowValidationException()
     {
         // Arrange
+        var requestId = Guid.NewGuid();
 
         // Act
-        var requestId = Guid.NewGuid();
         var exception = await Assert.ThrowsAsync<ValidationException>(()
             => Controller.UpdateAsync(requestId, new SyncPlaneCardDto("number", "London", "Genève", "seat", "gate", null)));
 
@@ -154,7 +154,7 @@ public sealed class PlaneCardUpdateTests : TestsBase
         // Arrange
         var planeCard = await SeedPlaneCard();
 
-        var otherPlaneCard = new PlaneCard
+        PlaneCard otherPlaneCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",
@@ -181,7 +181,7 @@ public sealed class PlaneCardUpdateTests : TestsBase
 
     private async Task<PlaneCard> SeedPlaneCard()
     {
-        var planeCard = new PlaneCard
+        PlaneCard planeCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "number",

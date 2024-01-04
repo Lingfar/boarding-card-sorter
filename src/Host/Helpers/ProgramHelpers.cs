@@ -31,12 +31,7 @@ public static class ProgramHelpers
         {
             foreach (var apiVersion in versionProvider.ApiVersionDescriptions.Select(x => x.ApiVersion.ToString()))
             {
-                options.SwaggerDoc(apiVersion,
-                    new OpenApiInfo
-                    {
-                        Title = $"API {apiVersion}",
-                        Version = apiVersion
-                    });
+                options.SwaggerDoc(apiVersion, new OpenApiInfo { Title = $"API {apiVersion}", Version = apiVersion });
             }
 
             // Add Swagger documentation for each methods that has an ApiVersion attribute

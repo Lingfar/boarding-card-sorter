@@ -9,11 +9,11 @@ namespace Application.BusCards.Queries;
 
 public static class BusCardGetAll
 {
-    public sealed record Query : IQuery<IEnumerable<BusCardDto>>;
+    public sealed record Query : IQuery<BusCardDto[]>;
 
-    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, IEnumerable<BusCardDto>>
+    public sealed class Handler(ReadDbContext readDbContext) : IRequestHandler<Query, BusCardDto[]>
     {
-        public async Task<IEnumerable<BusCardDto>> Handle(Query request, CancellationToken cancellationToken)
-            => (await readDbContext.BusCards.ToListAsync(cancellationToken)).MapToBusCardDtos();
+        public async Task<BusCardDto[]> Handle(Query request, CancellationToken cancellationToken)
+            => (await readDbContext.BusCards.ToArrayAsync(cancellationToken)).MapToBusCardDtos();
     }
 }

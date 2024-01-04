@@ -26,9 +26,9 @@ public sealed class BusCardCreateTests : TestsBase
     public async Task BusCardCreate_WhenInputIsGood_ShouldCreateBusCard()
     {
         // Arrange
+        SyncBusCardDto request = new("number", "Paris", "London", "seat");
 
         // Act
-        var request = new SyncBusCardDto("number", "Paris", "London", "seat");
         var actionResult = await Controller.CreateAsync(request);
 
         // Assert
@@ -91,7 +91,7 @@ public sealed class BusCardCreateTests : TestsBase
     public async Task BusCardCreate_WhenNumberAlreadyExists_ShouldThrowValidationException()
     {
         // Arrange
-        var otherBusCard = new BusCard
+        BusCard otherBusCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",

@@ -21,7 +21,7 @@ public static class ProgramExtensions
 
     private static NpgsqlDataSource GetDataSource(string? connectionString)
     {
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+        NpgsqlDataSourceBuilder dataSourceBuilder = new(connectionString);
         dataSourceBuilder.RegisterEnums();
         return dataSourceBuilder.Build();
     }

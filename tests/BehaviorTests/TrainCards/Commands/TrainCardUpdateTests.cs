@@ -27,9 +27,9 @@ public sealed class TrainCardUpdateTests : TestsBase
     {
         // Arrange
         var trainCard = await SeedTrainCard();
+        var request = new SyncTrainCardDto("newNumber", "Genève", "Nice", "seat");
 
         // Act
-        var request = new SyncTrainCardDto("newNumber", "Genève", "Nice", "seat");
         var actionResult = await Controller.UpdateAsync(trainCard.Id, request);
 
         // Assert
@@ -116,9 +116,9 @@ public sealed class TrainCardUpdateTests : TestsBase
     public async Task TrainCardUpdate_WhenNotExists_ShouldThrowValidationException()
     {
         // Arrange
+        var requestId = Guid.NewGuid();
 
         // Act
-        var requestId = Guid.NewGuid();
         var exception = await Assert.ThrowsAsync<ValidationException>(()
             => Controller.UpdateAsync(requestId, new SyncTrainCardDto("number", "London", "Genève", "seat")));
 
@@ -135,7 +135,7 @@ public sealed class TrainCardUpdateTests : TestsBase
         // Arrange
         var trainCard = await SeedTrainCard();
 
-        var otherTrainCard = new TrainCard
+        TrainCard otherTrainCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",
@@ -160,7 +160,7 @@ public sealed class TrainCardUpdateTests : TestsBase
 
     private async Task<TrainCard> SeedTrainCard()
     {
-        var trainCard = new TrainCard
+        TrainCard trainCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "number",

@@ -17,5 +17,5 @@ public static partial class PlaneCardMapper
     public static partial void MapToPlaneCard(this PlaneCardUpdate.Command command, PlaneCard entity);
 
     public static partial PlaneCardDto MapToPlaneCardDto(this PlaneCard entity);
-    public static partial IEnumerable<PlaneCardDto> MapToPlaneCardDtos(this List<PlaneCard> entities);
+    public static partial PlaneCardDto[] MapToPlaneCardDtos(this PlaneCard[] entities);
 }

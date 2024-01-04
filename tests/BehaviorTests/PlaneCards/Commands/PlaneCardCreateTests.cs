@@ -26,9 +26,9 @@ public sealed class PlaneCardCreateTests : TestsBase
     public async Task PlaneCardCreate_WhenInputIsGood_ShouldCreatePlaneCard()
     {
         // Arrange
+        var request = new SyncPlaneCardDto("number", "Paris", "London", "seat", "gate", "counter");
 
         // Act
-        var request = new SyncPlaneCardDto("number", "Paris", "London", "seat", "gate", "counter");
         var actionResult = await Controller.CreateAsync(request);
 
         // Assert
@@ -66,9 +66,8 @@ public sealed class PlaneCardCreateTests : TestsBase
         // Arrange
 
         // Act
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(()
-                => Controller.CreateAsync(new SyncPlaneCardDto("number", string.Empty, "London", "seat", "gate", null)));
+        var exception = await Assert.ThrowsAsync<ValidationException>(()
+            => Controller.CreateAsync(new SyncPlaneCardDto("number", string.Empty, "London", "seat", "gate", null)));
 
         // Assert
         exception.Errors.Should().HaveCount(1);
@@ -129,7 +128,7 @@ public sealed class PlaneCardCreateTests : TestsBase
     public async Task PlaneCardCreate_WhenNumberAlreadyExists_ShouldThrowValidationException()
     {
         // Arrange
-        var otherPlaneCard = new PlaneCard
+        PlaneCard otherPlaneCard = new()
         {
             Id = Guid.NewGuid(),
             Number = "otherNumber",

@@ -47,17 +47,16 @@ public sealed class PlaneCardGetAllTests : TestsBase
         // Assert
         var resultPlaneCards = actionResult.AsOkResult().ToList();
         resultPlaneCards.Should().HaveCount(planeCards.Count);
-        resultPlaneCards.Should()
-            .AllSatisfy(resultPlaneCard =>
-            {
-                var planeCard = DbContext.PlaneCards.WithSpecification(new PlaneCardByIdSpec(resultPlaneCard.Id)).Single();
-                resultPlaneCard.Type.Should().Be(planeCard.Type);
-                resultPlaneCard.Number.Should().Be(planeCard.Number);
-                resultPlaneCard.Departure.Should().Be(planeCard.Departure);
-                resultPlaneCard.Arrival.Should().Be(planeCard.Arrival);
-                resultPlaneCard.Seat.Should().Be(planeCard.Seat);
-                resultPlaneCard.Gate.Should().Be(planeCard.Gate);
-                resultPlaneCard.Counter.Should().Be(planeCard.Counter);
-            });
+        resultPlaneCards.Should().AllSatisfy(resultPlaneCard =>
+        {
+            var planeCard = DbContext.PlaneCards.WithSpecification(new PlaneCardByIdSpec(resultPlaneCard.Id)).Single();
+            resultPlaneCard.Type.Should().Be(planeCard.Type);
+            resultPlaneCard.Number.Should().Be(planeCard.Number);
+            resultPlaneCard.Departure.Should().Be(planeCard.Departure);
+            resultPlaneCard.Arrival.Should().Be(planeCard.Arrival);
+            resultPlaneCard.Seat.Should().Be(planeCard.Seat);
+            resultPlaneCard.Gate.Should().Be(planeCard.Gate);
+            resultPlaneCard.Counter.Should().Be(planeCard.Counter);
+        });
     }
 }

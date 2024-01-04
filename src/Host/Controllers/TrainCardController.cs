@@ -15,10 +15,10 @@ namespace Host.Controllers;
 public class TrainCardController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<TrainCardDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TrainCardDto[]), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<TrainCardDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<TrainCardDto[]>> GetAllAsync(CancellationToken cancellationToken = default)
         => Ok(await mediator.Send(new TrainCardGetAll.Query(), cancellationToken));
 
     [HttpPost]
@@ -31,7 +31,7 @@ public class TrainCardController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken = default)
         => Ok(new CreatedDto(await mediator.Send(request.MapToTrainCardCreateCommand(), cancellationToken)));
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(TrainCardDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -41,7 +41,7 @@ public class TrainCardController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken = default)
         => Ok(await mediator.Send(new TrainCardGetById.Query(id), cancellationToken));
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
